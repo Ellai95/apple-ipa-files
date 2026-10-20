@@ -11,7 +11,7 @@ ADVERTISING = (
     r"(?i)(?:tg\s*[@:_-]\s*|@)[A-Za-z][A-Za-z0-9_]{2,}",
     r"(?i)\b(?:KamoHacks|AppAssassin|IAppsBestLibrary|privateipa|unlimipa|islamusamanov)\b",
 )
-TIMESTAMP = re.compile(r"(?<!\d)[17-21]\d{8}(?!\d)")
+TIMESTAMP = re.compile(r"(?<!\d)1[5-9]\d{8}(?!\d)")
 VERSION_TRAILING = re.compile(
     r"(?i)(?:[-\s_\[(]|^)(?:v(?:er(?:sion)?)?\.?\s*)?"
     r"(\d{1,4}(?:[._]\d{1,5}){1,5})(?:[\s_\])\-]|$)"
