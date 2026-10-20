@@ -6,7 +6,7 @@ import json
 import os
 import re
 from collections import defaultdict
-from datetime import timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 from telethon import TelegramClient
@@ -14,7 +14,7 @@ from telethon.errors import FloodWaitError, RPCError
 from telethon.sessions import StringSession
 
 IPA_SUFFIXES = (".ipa", ".ipa.zip")
-IPA_WORD = re.compile(r"\\bipa\\b", re.IGNORECASE)
+IPA_WORD = re.compile(r"\bipa\b", re.IGNORECASE)
 
 
 def parse_args():
@@ -147,7 +147,7 @@ async def main():
     unique_name_size = len(duplicate_groups)
     report = {
         "schema_version": 1,
-        "generated_at": __import__("datetime").datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "mode": "metadata_inventory_only_no_ipa_downloads",
         "channels": channels,
         "messages_limit_per_channel": args.limit,
@@ -167,8 +167,8 @@ async def main():
         "items": all_rows,
     }
     output = Path(args.output)
-    output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
-    print("\\nInventory summary:")
+    output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("\nInventory summary:")
     print(json.dumps(report["summary"], ensure_ascii=False, indent=2))
     print(f"Saved inventory to {output}")
 
