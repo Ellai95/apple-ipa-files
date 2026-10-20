@@ -76,7 +76,7 @@ def list_release_assets(repo, token, release_id):
 
 
 def parse_sources(raw):
-    urls = re.split(r"[,\\s]+", raw.strip())
+    urls = re.split(r"[,\s]+", raw.strip())
     rows = []
     for url in urls:
         if not url:
@@ -84,7 +84,7 @@ def parse_sources(raw):
         parsed = urllib.parse.urlparse(url)
         if parsed.scheme != "https" or parsed.hostname not in ("t.me", "telegram.me"):
             raise ValueError("Use full https://t.me/channel/message_id links only")
-        match = re.fullmatch(r"/([A-Za-z0-9_]{5,32})/(\\d+)/?", parsed.path)
+        match = re.fullmatch(r"/([A-Za-z0-9_]{5,32})/(\d+)/?", parsed.path)
         if not match:
             raise ValueError("Invalid public channel post link: " + url[:150])
         rows.append((match.group(1), int(match.group(2)), url))
@@ -106,7 +106,7 @@ def validate_ipa(path):
         info = next(
             (
                 entry for entry in archive.infolist()
-                if re.fullmatch(r"Payload/[^/]+\\.app/Info\\.plist", entry.filename)
+                if re.fullmatch(r"Payload/[^/]+\.app/Info\.plist", entry.filename)
             ),
             None,
         )
